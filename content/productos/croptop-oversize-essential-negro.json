@@ -1,0 +1,42 @@
+{
+  "nombre": "Croptop Oversize Essential Negro",
+  "categoria": "mujer",
+  "coleccion": "essentials",
+  "variante": "Negro",
+  "color": "Negro",
+  "lineaDePrecio": "mujer-essentials",
+  "descripcion": "Croptop oversize negro con el logotipo BOSQO minimalista. Un básico premium que va con todo.",
+  "detalles": [
+    "Corte croptop oversize",
+    "Logotipo BOSQO minimalista al centro"
+  ],
+  "imagenes": [
+    "/images/productos/croptop-oversize-essential-negro/imagenes/0.webp",
+    "/images/productos/croptop-oversize-essential-negro/imagenes/1.webp",
+    "/images/productos/croptop-oversize-essential-negro/imagenes/2.webp",
+    "/images/productos/croptop-oversize-essential-negro/imagenes/3.webp",
+    "/images/productos/croptop-oversize-essential-negro/imagenes/4.webp",
+    "/images/productos/croptop-oversize-essential-negro/imagenes/5.webp"
+  ],
+  "tallas": [
+    {
+      "talla": "S",
+      "disponible": true
+    },
+    {
+      "talla": "M",
+      "disponible": true
+    },
+    {
+      "talla": "L",
+      "disponible": true
+    },
+    {
+      "talla": "XL",
+      "disponible": true
+    }
+  ],
+  "nuevo": false,
+  "destacado": false,
+  "orden": 6
+}

@@ -1,0 +1,301 @@
+@import "tailwindcss";
+
+@theme {
+  --color-crema: #f6eee4;
+  --color-arena: #ece0d1;
+  --color-linea: #dccbb7;
+  --color-cacao: #55301f;
+  --color-cacao-claro: #74503d;
+  --color-tenue: #6f5545;
+  --color-selva: #1f4d2e;
+  --color-costa: #1d3a5f;
+  --color-andes: #6b3b22;
+  --color-exito: #2f5d3a;
+  --color-error: #9b2c1f;
+
+  --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), ui-serif, Georgia, serif;
+
+  /* Movimiento cálido: arranca decidido y se posa suave, sin rebotes */
+  --ease-calida: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-crema);
+    color: var(--color-cacao);
+  }
+  ::selection {
+    background: var(--color-cacao);
+    color: var(--color-crema);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-cacao);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .contenedor {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .titulo {
+    @apply font-display font-semibold uppercase tracking-[0.18em];
+  }
+  .rotulo {
+    @apply text-[0.7rem] font-medium uppercase tracking-[0.25em];
+  }
+  .boton {
+    @apply inline-flex items-center justify-center gap-2 bg-cacao px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] text-crema transition-all duration-500 ease-calida hover:-translate-y-0.5 hover:bg-cacao-claro hover:shadow-[0_10px_24px_-12px_rgb(85_48_31/0.55)] active:translate-y-0 disabled:pointer-events-none disabled:opacity-50;
+  }
+  .boton-borde {
+    @apply inline-flex items-center justify-center gap-2 border border-cacao px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] text-cacao transition-all duration-500 ease-calida hover:-translate-y-0.5 hover:bg-cacao hover:text-crema hover:shadow-[0_10px_24px_-12px_rgb(85_48_31/0.55)] active:translate-y-0;
+  }
+  /* Subrayado que crece desde la izquierda */
+  .enlace-linea {
+    @apply relative py-1;
+  }
+  .enlace-linea::after {
+    content: "";
+    @apply absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-current transition-transform duration-500 ease-calida;
+  }
+  .enlace-linea:hover::after,
+  .enlace-linea[aria-current="page"]::after {
+    @apply scale-x-100;
+  }
+  .campo {
+    @apply w-full border border-linea bg-white/70 px-3 py-2.5 text-sm text-cacao transition-colors duration-300 ease-calida placeholder:text-tenue/70 focus:border-cacao focus:bg-white focus:outline-none;
+  }
+  .etiqueta-campo {
+    @apply mb-1.5 block text-xs font-medium uppercase tracking-[0.15em];
+  }
+}
+
+/* ---------- Animaciones ---------- */
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes desvanecer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes acercar {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes latido {
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrada de la portada (espera a que termine la pantalla de carga) */
+  .entrada {
+    animation: aparecer 0.9s var(--ease-calida) both;
+    animation-delay: calc(var(--retraso, 0s) + var(--espera-intro, 0s));
+  }
+  .entrada-imagen {
+    animation: acercar 2.4s var(--ease-calida) both;
+    animation-delay: var(--espera-intro, 0s);
+  }
+  html:not([data-intro="vista"]) {
+    --espera-intro: 2.3s;
+  }
+
+  .aparece {
+    animation: aparecer 0.6s var(--ease-calida) both;
+  }
+  .latido {
+    animation: latido 0.45s var(--ease-calida);
+  }
+
+  /* Los elementos aparecen al entrar en pantalla (solo navegadores con scroll-driven animations) */
+  @supports (animation-timeline: view()) {
+    .revelar {
+      animation: aparecer linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+/* ---------- Pantalla de carga ---------- */
+
+.pantalla-carga {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--color-crema);
+  animation: carga-salida 0.8s var(--ease-calida) 2.2s forwards;
+}
+html[data-intro="vista"] .pantalla-carga {
+  display: none;
+}
+.carga-logos {
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+}
+.carga-logos > * {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+  opacity: 0;
+  animation: carga-logo 0.9s var(--ease-calida) both;
+}
+.carga-logos > :nth-child(2) {
+  animation-delay: 0.7s;
+}
+.carga-logos > :nth-child(3) {
+  animation-delay: 1.4s;
+  animation-name: carga-logo-final;
+}
+.carga-barra {
+  height: 1px;
+  width: 9rem;
+  background: var(--color-linea);
+  overflow: hidden;
+}
+.carga-barra::after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--color-cacao);
+  transform-origin: left;
+  animation: carga-progreso 2.2s var(--ease-calida) both;
+}
+
+@keyframes carga-logo {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.94);
+    filter: blur(4px);
+  }
+  35%,
+  65% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px) scale(1.02);
+    filter: blur(3px);
+  }
+}
+@keyframes carga-logo-final {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.94);
+    filter: blur(4px);
+  }
+  45%,
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+@keyframes carga-progreso {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes carga-salida {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pantalla-carga {
+    animation-delay: 0.6s;
+    animation-duration: 0.3s;
+  }
+  .carga-logos > *,
+  .carga-barra::after {
+    animation: none;
+  }
+  .carga-logos > :nth-child(3) {
+    opacity: 1;
+  }
+}
+
+/* ---------- Transiciones entre páginas (View Transitions) ---------- */
+
+::view-transition {
+  pointer-events: none;
+}
+/* La cabecera queda fija mientras cambia el contenido */
+::view-transition-group(cabecera) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(cabecera) {
+  display: none;
+}
+::view-transition-new(cabecera) {
+  animation: none;
+}
+::view-transition-old(.pagina) {
+  animation: 0.25s var(--ease-calida) both desvanecer reverse;
+}
+::view-transition-new(.pagina) {
+  animation: 0.6s var(--ease-calida) 0.1s both aparecer;
+}
+/* La foto de la tarjeta "viaja" hasta la galería del producto */
+::view-transition-group(.foto) {
+  animation-duration: 0.55s;
+  animation-timing-function: var(--ease-calida);
+}
+::view-transition-image-pair(.foto) {
+  animation-name: via-desenfoque;
+}
+@keyframes via-desenfoque {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

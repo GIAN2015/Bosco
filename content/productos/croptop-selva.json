@@ -1,0 +1,42 @@
+{
+  "nombre": "Croptop Selva",
+  "categoria": "mujer",
+  "coleccion": "origen",
+  "variante": "Selva",
+  "color": "Perla",
+  "lineaDePrecio": "mujer-origen",
+  "descripcion": "Tono perla con la flor de BOSQO SELVA en rojo intenso. Delicado y con carácter.",
+  "detalles": [
+    "Corte croptop",
+    "Estampado central BOSQO SELVA"
+  ],
+  "imagenes": [
+    "/images/productos/croptop-selva/imagenes/0.webp",
+    "/images/productos/croptop-selva/imagenes/1.webp",
+    "/images/productos/croptop-selva/imagenes/2.webp",
+    "/images/productos/croptop-selva/imagenes/3.webp",
+    "/images/productos/croptop-selva/imagenes/4.webp",
+    "/images/productos/croptop-selva/imagenes/5.webp"
+  ],
+  "tallas": [
+    {
+      "talla": "S",
+      "disponible": true
+    },
+    {
+      "talla": "M",
+      "disponible": true
+    },
+    {
+      "talla": "L",
+      "disponible": true
+    },
+    {
+      "talla": "XL",
+      "disponible": true
+    }
+  ],
+  "nuevo": true,
+  "destacado": true,
+  "orden": 10
+}

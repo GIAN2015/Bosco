@@ -1,0 +1,42 @@
+{
+  "nombre": "Polo Oversize Essential Negro",
+  "categoria": "hombre",
+  "coleccion": "essentials",
+  "variante": "Negro",
+  "color": "Negro",
+  "lineaDePrecio": "hombre",
+  "descripcion": "El básico que lo sostiene todo. Polo oversize negro con el logotipo BOSQO discreto al pecho: minimalista, versátil y pensado para el día a día.",
+  "detalles": [
+    "Corte oversize",
+    "Logotipo BOSQO minimalista al pecho"
+  ],
+  "imagenes": [
+    "/images/productos/polo-oversize-essential-negro/imagenes/0.webp",
+    "/images/productos/polo-oversize-essential-negro/imagenes/1.webp",
+    "/images/productos/polo-oversize-essential-negro/imagenes/2.webp",
+    "/images/productos/polo-oversize-essential-negro/imagenes/3.webp",
+    "/images/productos/polo-oversize-essential-negro/imagenes/4.webp",
+    "/images/productos/polo-oversize-essential-negro/imagenes/5.webp"
+  ],
+  "tallas": [
+    {
+      "talla": "S",
+      "disponible": true
+    },
+    {
+      "talla": "M",
+      "disponible": true
+    },
+    {
+      "talla": "L",
+      "disponible": true
+    },
+    {
+      "talla": "XL",
+      "disponible": true
+    }
+  ],
+  "nuevo": false,
+  "destacado": false,
+  "orden": 1
+}

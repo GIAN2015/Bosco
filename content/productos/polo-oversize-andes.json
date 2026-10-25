@@ -1,0 +1,42 @@
+{
+  "nombre": "Polo Oversize Andes",
+  "categoria": "hombre",
+  "coleccion": "origen",
+  "variante": "Andes",
+  "color": "Beige",
+  "lineaDePrecio": "hombre",
+  "descripcion": "Tono beige con la silueta de las montañas y el sol andino. Un homenaje a la sierra en clave contemporánea.",
+  "detalles": [
+    "Corte oversize",
+    "Estampado BOSQO ANDES al pecho"
+  ],
+  "imagenes": [
+    "/images/productos/polo-oversize-andes/imagenes/0.webp",
+    "/images/productos/polo-oversize-andes/imagenes/1.webp",
+    "/images/productos/polo-oversize-andes/imagenes/2.webp",
+    "/images/productos/polo-oversize-andes/imagenes/3.webp",
+    "/images/productos/polo-oversize-andes/imagenes/4.webp",
+    "/images/productos/polo-oversize-andes/imagenes/5.webp"
+  ],
+  "tallas": [
+    {
+      "talla": "S",
+      "disponible": true
+    },
+    {
+      "talla": "M",
+      "disponible": true
+    },
+    {
+      "talla": "L",
+      "disponible": true
+    },
+    {
+      "talla": "XL",
+      "disponible": true
+    }
+  ],
+  "nuevo": true,
+  "destacado": true,
+  "orden": 4
+}

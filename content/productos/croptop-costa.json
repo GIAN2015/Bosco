@@ -1,0 +1,42 @@
+{
+  "nombre": "Croptop Costa",
+  "categoria": "mujer",
+  "coleccion": "origen",
+  "variante": "Costa",
+  "color": "Celeste",
+  "lineaDePrecio": "mujer-origen",
+  "descripcion": "Celeste, con la concha de BOSQO COSTA estampada al centro. Fresco, playero y contemporáneo.",
+  "detalles": [
+    "Corte croptop",
+    "Estampado central BOSQO COSTA"
+  ],
+  "imagenes": [
+    "/images/productos/croptop-costa/imagenes/0.webp",
+    "/images/productos/croptop-costa/imagenes/1.webp",
+    "/images/productos/croptop-costa/imagenes/2.webp",
+    "/images/productos/croptop-costa/imagenes/3.webp",
+    "/images/productos/croptop-costa/imagenes/4.webp",
+    "/images/productos/croptop-costa/imagenes/5.webp"
+  ],
+  "tallas": [
+    {
+      "talla": "S",
+      "disponible": true
+    },
+    {
+      "talla": "M",
+      "disponible": true
+    },
+    {
+      "talla": "L",
+      "disponible": true
+    },
+    {
+      "talla": "XL",
+      "disponible": true
+    }
+  ],
+  "nuevo": true,
+  "destacado": true,
+  "orden": 8
+}

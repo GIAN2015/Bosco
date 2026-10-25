@@ -1,0 +1,42 @@
+{
+  "nombre": "Croptop Andes",
+  "categoria": "mujer",
+  "coleccion": "origen",
+  "variante": "Andes",
+  "color": "Plata",
+  "lineaDePrecio": "mujer-origen",
+  "descripcion": "Tono plata con la llama andina de BOSQO al centro. Identidad peruana con estilo urbano.",
+  "detalles": [
+    "Corte croptop",
+    "Estampado central BOSQO ANDES"
+  ],
+  "imagenes": [
+    "/images/productos/croptop-andes/imagenes/0.webp",
+    "/images/productos/croptop-andes/imagenes/1.webp",
+    "/images/productos/croptop-andes/imagenes/2.webp",
+    "/images/productos/croptop-andes/imagenes/3.webp",
+    "/images/productos/croptop-andes/imagenes/4.webp",
+    "/images/productos/croptop-andes/imagenes/5.webp"
+  ],
+  "tallas": [
+    {
+      "talla": "S",
+      "disponible": true
+    },
+    {
+      "talla": "M",
+      "disponible": true
+    },
+    {
+      "talla": "L",
+      "disponible": true
+    },
+    {
+      "talla": "XL",
+      "disponible": true
+    }
+  ],
+  "nuevo": true,
+  "destacado": true,
+  "orden": 9
+}

@@ -1,0 +1,42 @@
+{
+  "nombre": "Polo Oversize Selva",
+  "categoria": "hombre",
+  "coleccion": "origen",
+  "variante": "Selva",
+  "color": "Verde pistacho",
+  "lineaDePrecio": "hombre",
+  "descripcion": "Verde pistacho y la hoja de monstera de BOSQO SELVA: la energía de la Amazonía con corte oversize.",
+  "detalles": [
+    "Corte oversize",
+    "Estampado BOSQO SELVA al pecho"
+  ],
+  "imagenes": [
+    "/images/productos/polo-oversize-selva/imagenes/0.webp",
+    "/images/productos/polo-oversize-selva/imagenes/1.webp",
+    "/images/productos/polo-oversize-selva/imagenes/2.webp",
+    "/images/productos/polo-oversize-selva/imagenes/3.webp",
+    "/images/productos/polo-oversize-selva/imagenes/4.webp",
+    "/images/productos/polo-oversize-selva/imagenes/5.webp"
+  ],
+  "tallas": [
+    {
+      "talla": "S",
+      "disponible": true
+    },
+    {
+      "talla": "M",
+      "disponible": true
+    },
+    {
+      "talla": "L",
+      "disponible": true
+    },
+    {
+      "talla": "XL",
+      "disponible": true
+    }
+  ],
+  "nuevo": true,
+  "destacado": true,
+  "orden": 5
+}

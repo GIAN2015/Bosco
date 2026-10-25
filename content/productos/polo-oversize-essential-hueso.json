@@ -1,0 +1,43 @@
+{
+  "nombre": "Polo Oversize Essential Hueso",
+  "categoria": "hombre",
+  "coleccion": "essentials",
+  "variante": "Hueso",
+  "color": "Hueso",
+  "lineaDePrecio": "hombre",
+  "descripcion": "Un tono hueso cálido y limpio, con el logotipo BOSQO en marrón cacao. Atemporal y fácil de combinar.",
+  "detalles": [
+    "Corte oversize",
+    "Logotipo BOSQO minimalista al pecho"
+  ],
+  "imagenes": [
+    "/images/productos/polo-oversize-essential-hueso/imagenes/0.webp",
+    "/images/productos/polo-oversize-essential-hueso/imagenes/1.webp",
+    "/images/productos/polo-oversize-essential-hueso/imagenes/2.webp",
+    "/images/productos/polo-oversize-essential-hueso/imagenes/3.webp",
+    "/images/productos/polo-oversize-essential-hueso/imagenes/4.webp",
+    "/images/productos/polo-oversize-essential-hueso/imagenes/5.webp",
+    "/images/productos/polo-oversize-essential-hueso/imagenes/6.webp"
+  ],
+  "tallas": [
+    {
+      "talla": "S",
+      "disponible": true
+    },
+    {
+      "talla": "M",
+      "disponible": true
+    },
+    {
+      "talla": "L",
+      "disponible": true
+    },
+    {
+      "talla": "XL",
+      "disponible": true
+    }
+  ],
+  "nuevo": false,
+  "destacado": false,
+  "orden": 2
+}

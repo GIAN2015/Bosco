@@ -1,0 +1,25 @@
+{
+  "whatsapp": "51936210839",
+  "correo": "",
+  "anuncio": "NUEVA COLECCIÓN ORIGEN · COSTA · ANDES · SELVA",
+  "heroTitulo": "Nuestro origen es estilo",
+  "heroTexto": "Moda contemporánea inspirada en la Costa, los Andes y la Selva del Perú.",
+  "heroImagen": "/images/marca/heroImagen.webp",
+  "beneficios": [
+    "Envíos a todo el Perú",
+    "Paga con Yape o Plin",
+    "Pedidos por WhatsApp",
+    "Promos al llevar 2 o 3"
+  ],
+  "notaTallas": "Nuestras prendas son de corte oversize: elige tu talla habitual para un calce relajado. Si tienes dudas, revisa la guía de tallas o escríbenos por WhatsApp.",
+  "redes": {
+    "instagram": null,
+    "tiktok": null,
+    "facebook": null
+  },
+  "empresa": {
+    "razonSocial": "",
+    "ruc": "",
+    "direccion": ""
+  }
+}
