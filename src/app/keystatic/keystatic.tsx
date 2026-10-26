@@ -2,8 +2,8 @@
 
 import { makePage } from "@keystatic/next/ui/app";
 import config from "../../../keystatic.config";
-import { completarCryptoSubtle } from "./sha1-red-local";
+import { completarApisRedLocal } from "./red-local";
 
-completarCryptoSubtle();
+completarApisRedLocal();
 
 export default makePage(config);

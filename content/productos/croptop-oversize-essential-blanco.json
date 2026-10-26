@@ -5,7 +5,7 @@
   "variante": "Blanco",
   "color": "Blanco",
   "lineaDePrecio": "mujer-essentials",
-  "descripcion": "esto es una prueba",
+  "descripcion": "Hola infitnitos",
   "detalles": [
     "Corte croptop oversize",
     "Logotipo BOSQO minimalista al centro"
@@ -31,13 +31,9 @@
     {
       "talla": "L",
       "disponible": true
-    },
-    {
-      "talla": "XL",
-      "disponible": true
     }
   ],
-  "nuevo": false,
+  "nuevo": true,
   "destacado": false,
   "orden": 7
 }
