@@ -1,6 +1,9 @@
 import "server-only";
 import { createHash, createHmac, randomBytes, randomInt, timingSafeEqual } from "node:crypto";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { cookies } from "next/headers";
+import { parse, type Font } from "opentype.js";
 
 // Captcha propio (sin servicios externos) para el acceso al CMS.
 // El código se dibuja como imagen PNG (un bot no puede leerlo del HTML) y en una cookie solo
@@ -19,7 +22,24 @@ function firmar(codigo: string, expira: number, nonce: string) {
 
 const azar = (min: number, max: number) => min + Math.random() * (max - min);
 
+// Las letras se dibujan como trazos vectoriales a partir de la tipografía Jost incluida en el proyecto:
+// los servidores de Vercel no tienen fuentes instaladas y un <text> saldría como cuadrados vacíos.
+// (Estos archivos se incluyen en la función con outputFileTracingIncludes, en next.config.ts.)
+const ARCHIVOS_FUENTE =["500", "700", "800"].map(
+  (peso) => `node_modules/@fontsource/jost/files/jost-latin-${peso}-normal.woff`,
+);
+let fuentes: Font[] | undefined;
+
+function cargarFuentes() {
+  fuentes ??= ARCHIVOS_FUENTE.map((archivo) => {
+    const datos = readFileSync(path.join(process.cwd(), archivo));
+    return parse(new Uint8Array(datos).buffer);
+  });
+  return fuentes;
+}
+
 function svgCaptcha(codigo: string): string {
+  const tipos = cargarFuentes();
   const [ancho, alto] = [240, 80];
   const colores = ["#55301f", "#74503d", "#1d3a5f", "#1f4d2e"];
   const ruido = Array.from({ length: 6 }, () => {
@@ -32,10 +52,11 @@ function svgCaptcha(codigo: string): string {
   ).join("");
   const letras = [...codigo]
     .map((letra, i) => {
-      const x = 26 + i * 42 + azar(-5, 5);
-      const y = azar(48, 60);
-      const fuente = ["Georgia, serif", "Arial, sans-serif", "Verdana, sans-serif", "Times New Roman, serif"][randomInt(4)];
-      return `<text x="${x}" y="${y}" font-family="${fuente}" font-size="${azar(34, 44)}" font-weight="bold" fill="${colores[randomInt(colores.length)]}" transform="rotate(${azar(-18, 18)} ${x + 10} ${y - 14}) skewX(${azar(-8, 8)})">${letra}</text>`;
+      const x = 24 + i * 42 + azar(-5, 5);
+      const y = azar(50, 62);
+      const tamano = azar(36, 46);
+      const trazo = tipos[randomInt(tipos.length)].getPath(letra, 0, 0, tamano).toPathData(2);
+      return `<g transform="translate(${x} ${y}) rotate(${azar(-18, 18)} ${tamano * 0.3} ${-tamano * 0.35}) skewX(${azar(-8, 8)})"><path d="${trazo}" fill="${colores[randomInt(colores.length)]}"/></g>`;
     })
     .join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${ancho}" height="${alto}"><rect width="100%" height="100%" fill="#f6eee4"/>${puntos}${letras}${ruido}</svg>`;
