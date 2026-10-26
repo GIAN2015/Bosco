@@ -21,6 +21,10 @@ export function FormularioAcceso() {
   return (
     <form
       className="space-y-4"
+      // `action` + POST: si el JavaScript no carga, el navegador envía igualmente por POST a la Server Action
+      // y los datos nunca acaban en la URL. Con JavaScript, onSubmit se encarga del envío.
+      action={enviar}
+      method="post"
       onSubmit={(e) => {
         e.preventDefault();
         const datos = new FormData(e.currentTarget);

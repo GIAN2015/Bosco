@@ -47,6 +47,9 @@ export function Formulario({
     <form
       ref={formulario}
       className={className}
+      // Sin JavaScript el navegador envía por POST a la Server Action: los datos nunca van en la URL
+      action={enviar}
+      method="post"
       onSubmit={(e) => {
         // Envío manual para que React no borre los campos si hay un error
         e.preventDefault();

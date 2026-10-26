@@ -62,7 +62,8 @@ export default function configuracion(phase: string): NextConfig {
     poweredByHeader: false,
     // Permite usar `npm run dev` (y el CMS, con su login) desde otros equipos de la red de casa:
     // se autorizan las IPs que tenga esta PC, así sigue funcionando aunque cambie la IP.
-    allowedDevOrigins: esDesarrollo ? ipsDeEstaPc() : undefined,
+    // También 127.0.0.1: Next solo autoriza "localhost" por nombre, y sin esto la página carga sin JavaScript.
+    allowedDevOrigins: esDesarrollo ? [...ipsDeEstaPc(), "127.0.0.1"] : undefined,
     async headers() {
       return [
         // Toda la web excepto el panel (dos CSP en la misma respuesta se sumarían y bloquearían el panel).
