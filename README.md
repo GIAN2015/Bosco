@@ -3,20 +3,27 @@
 Next.js 16 + Tailwind CSS 4 + Keystatic (CMS). Todas las páginas se generan como HTML estático en el build;
 solo los formularios usan funciones serverless de Vercel. No necesita VPS ni base de datos.
 
-## Uso diario
+## Editar el contenido (CMS)
 
-```bash
-npm run dev          # web en http://localhost:3000
-                     # panel CMS en http://localhost:3000/keystatic
-```
+En el panel puedes cambiar productos, fotos, tallas agotadas, precios y promociones, el carrusel de la
+portada, WhatsApp, redes y páginas legales.
 
-En el panel puedes cambiar productos, fotos, tallas agotadas, precios y promociones, textos de la portada,
-WhatsApp, redes y páginas legales. Los cambios se guardan como archivos en `content/` y `public/images/`.
+| Dónde | Cómo guarda |
+|---|---|
+| **Web publicada:** `https://<tu-dominio>/acceso` | Directamente en GitHub (cada *Save* es un commit) → Vercel publica solo en 1-2 min |
+| **Tu PC:** `npm run dev` → `http://localhost:3000/acceso` | En los archivos de `content/` y `public/images/` → luego `git add -A`, `git commit` y `git push` |
 
-**Para publicarlos:** `git add -A && git commit -m "Actualizo catálogo" && git push` → Vercel vuelve a
-publicar la web sola en 1 o 2 minutos.
+> Si editas en la web publicada y luego en tu PC, haz antes `git pull` para traer los cambios.
 
-> El panel solo funciona en tu PC (en producción `/keystatic` da 404 a propósito).
+### Configurar el CMS en la web publicada (una sola vez)
+
+1. En tu PC: `$env:NEXT_PUBLIC_CMS_GITHUB="1"; npm run dev` (PowerShell) y entra en `/acceso` → `/keystatic`.
+2. Keystatic muestra un asistente: crea la GitHub App, instálala en el repositorio y escribe sus
+   credenciales en el archivo `.env` (no se sube a git).
+3. En la GitHub App (github.com/settings/apps) añade la Callback URL
+   `https://<tu-dominio>/api/keystatic/github/oauth/callback`.
+4. Copia a Vercel las variables `KEYSTATIC_*` y `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` del `.env`, y las
+   `CMS_*` del `.env.local`. Luego haz *Redeploy*.
 
 | Comando | Puerto | Para qué |
 |---|---|---|
@@ -26,9 +33,11 @@ publicar la web sola en 1 o 2 minutos.
 ### Acceso al panel
 
 El panel pide usuario y contraseña en `/acceso` (la sesión dura 8 horas; para salir, vuelve a `/acceso`).
+En la web publicada, además, Keystatic pide entrar con una cuenta de GitHub con permiso sobre el repositorio.
 Las credenciales están en `.env.local`, que **no** se sube a git: la contraseña solo se guarda cifrada (scrypt).
 
-- **Cambiar usuario y contraseña** (o si la olvidaste): `node scripts/crear-acceso.mjs` y reinicia `npm run dev`.
+- **Cambiar usuario y contraseña** (o si la olvidaste): `node scripts/crear-acceso.mjs`, reinicia `npm run dev`
+  y copia las nuevas `CMS_*` a Vercel (con *Redeploy*).
 - Captcha propio (imagen generada en el servidor, sin servicios externos): caduca a los 5 minutos y vale
   para un solo intento. Si no se lee bien, el botón ↻ muestra otro.
 - Tras 5 intentos fallidos la IP queda bloqueada 15 minutos (un acceso correcto reinicia el contador).

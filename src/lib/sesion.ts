@@ -42,7 +42,9 @@ export async function iniciarSesion() {
   const expira = Math.floor(Date.now() / 1000) + DURACION_S;
   (await cookies()).set(COOKIE, `${expira}.${firmar(expira)}`, {
     httpOnly: true,
-    sameSite: "strict",
+    // "lax" y no "strict": debe viajar al volver del login de GitHub (navegación desde otro sitio).
+    // Sigue sin enviarse en peticiones POST de otros sitios.
+    sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     path: "/",
     maxAge: DURACION_S,
@@ -54,8 +56,10 @@ export async function cerrarSesionActual() {
 }
 
 export async function sesionValida(): Promise<boolean> {
-  if (!accesoConfigurado()) return false;
+  // Se lee la cookie antes de nada: así las páginas que llaman a esta función son siempre dinámicas,
+  // aunque al compilar (p. ej. en Vercel) todavía no existan las variables CMS_*
   const valor = (await cookies()).get(COOKIE)?.value ?? "";
+  if (!accesoConfigurado()) return false;
   const [expiraTexto, firma] = valor.split(".");
   const expira = Number(expiraTexto);
   if (!firma || !Number.isInteger(expira) || expira < Date.now() / 1000) return false;

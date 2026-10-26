@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { sesionValida } from "@/lib/sesion";
 import KeystaticApp from "./keystatic";
 
@@ -8,10 +8,9 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-// El panel guarda en archivos locales: en producción (Vercel) no existe.
-// En local exige iniciar sesión en /acceso (la API también lo verifica).
+// Exige iniciar sesión en /acceso (la API también lo verifica).
+// En la web publicada, después Keystatic pide además entrar con GitHub.
 export default async function LayoutKeystatic() {
-  if (process.env.NODE_ENV === "production") notFound();
   if (!(await sesionValida())) redirect("/acceso");
   return <KeystaticApp />;
 }

@@ -2,9 +2,12 @@ import { networkInterfaces } from "node:os";
 import type { NextConfig } from "next";
 import { PHASE_DEVELOPMENT_SERVER } from "next/constants";
 
-// Política de seguridad de contenido: la web solo carga recursos propios.
+// Solo en Vercel (HTTPS): en la red local se entra por http://192.168.x.x y rompería los estilos
+const httpsEstricto = process.env.VERCEL ? ["upgrade-insecure-requests"] : [];
+
+// Política de seguridad de contenido de la tienda: solo carga recursos propios.
 // Next.js necesita 'unsafe-inline' para sus scripts de hidratación en páginas estáticas.
-const csp = [
+const cspTienda = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
@@ -15,8 +18,24 @@ const csp = [
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
-  // Solo en Vercel (HTTPS): en la red local se entra por http://192.168.x.x y rompería los estilos
-  ...(process.env.VERCEL ? ["upgrade-insecure-requests"] : []),
+  ...httpsEstricto,
+].join("; ");
+
+// El panel (Keystatic en modo GitHub) habla con la API de GitHub, muestra avatares e imágenes
+// de GitHub y carga su fuente de Google Fonts.
+const cspPanel = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "img-src 'self' data: blob: https://*.githubusercontent.com",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "connect-src 'self' https://api.github.com https://*.githubusercontent.com",
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self' https://github.com",
+  "frame-ancestors 'none'",
+  ...httpsEstricto,
 ].join("; ");
 
 function ipsDeEstaPc(): string[] {
@@ -26,10 +45,19 @@ function ipsDeEstaPc(): string[] {
     .map((i) => i!.address);
 }
 
+const cabecerasComunes = [
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
+];
+
 // Se usa la fase y no NODE_ENV: al cargar este archivo en `next dev` NODE_ENV aún no es "development".
 export default function configuracion(phase: string): NextConfig {
   // En desarrollo no se envía la CSP: React necesita eval() para depurar y Keystatic carga recursos externos
   const esDesarrollo = phase === PHASE_DEVELOPMENT_SERVER;
+  const csp = (valor: string) => (esDesarrollo ? [] : [{ key: "Content-Security-Policy", value: valor }]);
   return {
     poweredByHeader: false,
     // Permite usar `npm run dev` (y el CMS, con su login) desde otros equipos de la red de casa:
@@ -37,17 +65,13 @@ export default function configuracion(phase: string): NextConfig {
     allowedDevOrigins: esDesarrollo ? ipsDeEstaPc() : undefined,
     async headers() {
       return [
-        {
-          source: "/:path*",
-          headers: [
-            ...(esDesarrollo ? [] : [{ key: "Content-Security-Policy", value: csp }]),
-            { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
-            { key: "X-Content-Type-Options", value: "nosniff" },
-            { key: "X-Frame-Options", value: "DENY" },
-            { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-            { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
-          ],
-        },
+        // Toda la web excepto el panel (dos CSP en la misma respuesta se sumarían y bloquearían el panel).
+        // /acceso lleva la del panel: tras el login se pasa a /keystatic sin recargar y la CSP es la del documento inicial.
+        { source: "/:ruta((?!keystatic|acceso).*)", headers: [...csp(cspTienda), ...cabecerasComunes] },
+        ...["/keystatic", "/keystatic/:ruta*", "/acceso"].map((source) => ({
+          source,
+          headers: [...csp(cspPanel), ...cabecerasComunes],
+        })),
       ];
     },
     turbopack: {

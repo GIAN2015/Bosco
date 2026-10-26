@@ -17,7 +17,6 @@ const fallo = async (clave: string, mensaje: string): Promise<EstadoFormulario> 
 };
 
 export async function entrar(_: EstadoFormulario, formData: FormData): Promise<EstadoFormulario> {
-  if (process.env.NODE_ENV === "production") return { estado: "error", mensaje: ERROR };
   const clave = `acceso:${await ipCliente()}`;
   if (demasiadosFallos(clave)) {
     return { estado: "error", mensaje: "Demasiados intentos fallidos. Espera 15 minutos e inténtalo de nuevo." };

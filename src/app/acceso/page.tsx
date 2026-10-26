@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
 import { accesoConfigurado, sesionValida } from "@/lib/sesion";
 import { salir } from "./acciones";
 import { FormularioAcceso } from "./FormularioAcceso";
@@ -12,8 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default async function PaginaAcceso() {
-  // El CMS solo existe en local
-  if (process.env.NODE_ENV === "production") notFound();
   const [configurado, conectado] = [accesoConfigurado(), await sesionValida()];
 
   return (
@@ -27,14 +23,16 @@ export default async function PaginaAcceso() {
 
         {!configurado ? (
           <p role="alert" className="border border-error/30 bg-error/5 p-3 text-sm text-error">
-            El acceso no está configurado. Ejecuta <code>node scripts/crear-acceso.mjs</code> y reinicia el servidor.
+            El acceso no está configurado: faltan las variables CMS_USUARIO, CMS_CLAVE_HASH y CMS_SECRETO.
           </p>
         ) : conectado ? (
           <div className="space-y-3">
             <p className="text-center text-sm">Ya iniciaste sesión.</p>
-            <Link href="/keystatic" className="boton w-full">
+            {/* Carga completa (no <Link>): evita reutilizar una redirección guardada de antes del login */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <a href="/keystatic" className="boton w-full">
               Ir al panel
-            </Link>
+            </a>
             <form action={salir}>
               <button type="submit" className="boton-borde w-full">
                 Cerrar sesión

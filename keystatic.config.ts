@@ -1,10 +1,14 @@
 import { config, collection, singleton, fields } from "@keystatic/core";
 
-// Panel de administración: http://localhost:3000/keystatic (solo en local).
-// Lo que se edita aquí se guarda como archivos en /content y /public/images:
-// al hacer git push, Vercel vuelve a publicar la web con los cambios.
+// Panel de administración en /keystatic (con login previo en /acceso).
+// - En la web publicada (Vercel) guarda directamente en GitHub: cada "Save" es un commit
+//   y Vercel vuelve a publicar la web sola.
+// - En `npm run dev` guarda en los archivos de tu PC (content/ y public/images/); luego hay que hacer git push.
+//   Con NEXT_PUBLIC_CMS_GITHUB=1 también usa GitHub en local (necesario para configurarlo la primera vez).
+const usarGitHub = process.env.NODE_ENV === "production" || process.env.NEXT_PUBLIC_CMS_GITHUB === "1";
+
 export default config({
-  storage: { kind: "local" },
+  storage: usarGitHub ? { kind: "github", repo: "GIAN2015/Bosco" } : { kind: "local" },
   ui: {
     brand: { name: "BOSQO" },
     navigation: {
