@@ -119,11 +119,29 @@ export default config({
         anuncio: fields.text({ label: "Barra de anuncio superior", description: "Vacío = no se muestra" }),
         heroTitulo: fields.text({ label: "Portada: título" }),
         heroTexto: fields.text({ label: "Portada: texto", multiline: true }),
-        heroImagen: fields.image({
-          label: "Portada: imagen",
-          directory: "public/images/marca",
-          publicPath: "/images/marca/",
-        }),
+        portada: fields.array(
+          fields.object({
+            imagen: fields.image({
+              label: "Imagen",
+              directory: "public/images/inicio",
+              publicPath: "/images/inicio/",
+              validation: { isRequired: true },
+            }),
+            alt: fields.text({
+              label: "Descripción de la imagen",
+              description: "Para personas con lector de pantalla y para Google. Ej.: Modelos con polo BOSQO negro y croptop blanco",
+            }),
+            enlace: fields.text({
+              label: "Enlace al hacer clic (opcional)",
+              description: "Una página de la tienda, ej.: /tienda/origen. Vacío = sin enlace",
+            }),
+          }),
+          {
+            label: "Carrusel de portada",
+            description: "Imágenes horizontales (ideal 1920×1080). Arrastra para cambiar el orden; la primera se muestra al entrar.",
+            itemLabel: (props) => props.fields.alt.value || "Imagen sin descripción",
+          },
+        ),
         beneficios: fields.array(fields.text({ label: "Beneficio" }), {
           label: "Beneficios (franja de la portada)",
           itemLabel: (props) => props.value,

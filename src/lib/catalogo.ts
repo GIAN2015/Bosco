@@ -77,7 +77,13 @@ export const obtenerProducto = cache(async (slug: string) =>
 
 export const obtenerAjustes = cache(async () => {
   const ajustes = await reader.singletons.ajustes.readOrThrow();
-  return { ...ajustes, whatsapp: ajustes.whatsapp.replace(/\D/g, "") };
+  const portada = ajustes.portada.flatMap(({ imagen, alt, enlace }) => {
+    if (!imagen) return [];
+    // Solo enlaces internos ("/tienda/origen"): evita enlaces externos o javascript: desde el CMS
+    const interno = enlace.trim();
+    return [{ imagen, alt, enlace: /^\/(?!\/)/.test(interno) ? interno : null }];
+  });
+  return { ...ajustes, portada, whatsapp: ajustes.whatsapp.replace(/\D/g, "") };
 });
 
 export const obtenerPoliticas = cache(() => reader.singletons.politicas.readOrThrow());

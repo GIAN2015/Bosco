@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
+import { obtenerAjustes } from "@/lib/catalogo";
 import { URL_SITIO } from "@/lib/sitio";
 import "./globals.css";
 
@@ -14,21 +15,25 @@ const jost = Jost({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(URL_SITIO),
-  title: {
-    default: "BOSQO · Moda contemporánea",
-    template: "%s · BOSQO",
-  },
-  description:
-    "Polos oversize y croptops inspirados en la Costa, los Andes y la Selva del Perú. Nuestro origen es estilo.",
-  openGraph: {
-    type: "website",
-    locale: "es_PE",
-    siteName: "BOSQO",
-    images: ["/images/marca/heroImagen.webp"],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  // La vista previa al compartir el enlace (WhatsApp, Facebook) usa la primera imagen del carrusel
+  const { portada } = await obtenerAjustes();
+  return {
+    metadataBase: new URL(URL_SITIO),
+    title: {
+      default: "BOSQO · Moda contemporánea",
+      template: "%s · BOSQO",
+    },
+    description:
+      "Polos oversize y croptops inspirados en la Costa, los Andes y la Selva del Perú. Nuestro origen es estilo.",
+    openGraph: {
+      type: "website",
+      locale: "es_PE",
+      siteName: "BOSQO",
+      images: portada.slice(0, 1).map((d) => d.imagen),
+    },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#f6eee4",

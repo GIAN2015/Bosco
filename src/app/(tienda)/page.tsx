@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CarruselPortada } from "@/components/layout/CarruselPortada";
 import { GrillaProductos } from "@/components/producto/TarjetaProducto";
 import { TablaPromos } from "@/components/producto/TablaPromos";
 import { obtenerAjustes, obtenerLineas, obtenerProductos } from "@/lib/catalogo";
@@ -36,20 +37,8 @@ export default async function Inicio() {
 
   return (
     <>
-      <section aria-label="Portada" className="relative">
-        {ajustes.heroImagen && (
-          <div className="overflow-hidden">
-            <Image
-              src={ajustes.heroImagen}
-              alt="Modelos con polo BOSQO Essentials negro y croptop blanco frente a paisajes de Costa, Andes y Selva"
-              width={2000}
-              height={1125}
-              preload
-              sizes="100vw"
-              className="entrada-imagen aspect-[16/9] w-full object-cover"
-            />
-          </div>
-        )}
+      <CarruselPortada diapositivas={ajustes.portada} />
+      <section aria-label="Presentación" className="relative">
         <div className="contenedor flex flex-col items-center gap-6 py-12 text-center">
           {ajustes.heroTitulo && (
             <h1 className="entrada titulo text-2xl sm:text-4xl" style={retraso(0.15)}>

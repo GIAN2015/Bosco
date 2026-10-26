@@ -97,7 +97,10 @@ for (const [slug, [carpeta, orden]] of Object.entries(productos)) {
 const logos = path.join(origen, "Logos");
 const CACAO = "#55301f";
 const CREMA = "#f6eee4";
-await aWebp(path.join(logos, "portada.png"), path.join(publico, "marca", "heroImagen.webp"), 2000, 82);
+// Carrusel de portada, con los nombres que usa Keystatic (inicio/portada/<n>/imagen.webp)
+for (const [n, archivo] of ["portada.png", "portada fb.png"].entries()) {
+  await aWebp(path.join(logos, archivo), path.join(publico, "inicio", "portada", String(n), "imagen.webp"), 2000, 82);
+}
 await logoTransparente(path.join(logos, "BOSQO_Logo_Cacao.png"), path.join(publico, "marca", "wordmark.png"), CACAO, 900);
 await logoTransparente(path.join(logos, "BOSQO_Logo_Cacao.png"), path.join(publico, "marca", "wordmark-crema.png"), CREMA, 900);
 await logoTransparente(path.join(logos, "Logotipo BOSQO sobre fondo transparente.png"), path.join(publico, "marca", "logotipo.png"), CACAO, 1000);

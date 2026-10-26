@@ -3,7 +3,18 @@
   "anuncio": "NUEVA COLECCIÓN ORIGEN · COSTA · ANDES · SELVA",
   "heroTitulo": "Nuestro origen es estilo",
   "heroTexto": "Moda contemporánea inspirada en la Costa, los Andes y la Selva del Perú.",
-  "heroImagen": "/images/marca/heroImagen.webp",
+  "portada": [
+    {
+      "imagen": "/images/inicio/portada/0/imagen.webp",
+      "alt": "Modelos con polo BOSQO Essentials negro y croptop blanco frente a paisajes de Costa, Andes y Selva",
+      "enlace": "/tienda"
+    },
+    {
+      "imagen": "/images/inicio/portada/1/imagen.webp",
+      "alt": "BOSQO, moda contemporánea: Machu Picchu, la costa y la selva al atardecer",
+      "enlace": "/tienda/origen"
+    }
+  ],
   "beneficios": [
     "Envíos a todo el Perú",
     "Pedidos por WhatsApp",
