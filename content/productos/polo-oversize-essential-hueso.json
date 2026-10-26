@@ -37,7 +37,7 @@
       "disponible": true
     }
   ],
-  "nuevo": false,
-  "destacado": false,
+  "nuevo": true,
+  "destacado": true,
   "orden": 2
 }
