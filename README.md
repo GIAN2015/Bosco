@@ -46,8 +46,9 @@ El precio tachado sale del campo "Precio regular" de cada línea de precio en el
 
 ## Formularios
 
-Contacto, newsletter, "avísame" (tallas agotadas) y libro de reclamaciones envían un correo mediante
-[Resend](https://resend.com). Configura las variables de `.env.example` en Vercel
+Contacto, newsletter, "avísame" (tallas agotadas) y libro de reclamaciones envían un correo desde una cuenta
+de Gmail con [contraseña de aplicación](https://myaccount.google.com/apppasswords) (requiere la verificación en
+2 pasos). Configura `GMAIL_USUARIO`, `GMAIL_CLAVE_APP` y `CORREO_DESTINO` en Vercel
 (Project → Settings → Environment Variables). En local, sin configurar, los mensajes se muestran en la terminal.
 
 Seguridad: validación en el servidor (zod), campo trampa anti-bots, tiempo mínimo de llenado, límite de
