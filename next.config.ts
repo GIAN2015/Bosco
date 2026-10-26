@@ -60,6 +60,9 @@ export default function configuracion(phase: string): NextConfig {
   const csp = (valor: string) => (esDesarrollo ? [] : [{ key: "Content-Security-Policy", value: valor }]);
   return {
     poweredByHeader: false,
+    // El contenido del CMS se lee del disco con Keystatic: las páginas estáticas lo leen al compilar, pero
+    // las dinámicas (/acceso, /keystatic, formularios) lo leen en Vercel, donde hay que incluirlo a mano.
+    outputFileTracingIncludes: { "/**": ["./content/**/*"] },
     // Permite usar `npm run dev` (y el CMS, con su login) desde otros equipos de la red de casa:
     // se autorizan las IPs que tenga esta PC, así sigue funcionando aunque cambie la IP.
     // También 127.0.0.1: Next solo autoriza "localhost" por nombre, y sin esto la página carga sin JavaScript.
