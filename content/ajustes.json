@@ -13,6 +13,11 @@
       "imagen": "/images/inicio/portada/1/imagen.png",
       "alt": "Promo 3x120",
       "enlace": "/tienda"
+    },
+    {
+      "imagen": "/images/inicio/portada/2/imagen.png",
+      "alt": "Promo mujer origen 3x90",
+      "enlace": "/tienda"
     }
   ],
   "beneficios": [
