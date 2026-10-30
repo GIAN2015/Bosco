@@ -16,7 +16,7 @@
     "/images/productos/croptop-selva/imagenes/2.webp",
     "/images/productos/croptop-selva/imagenes/3.webp",
     "/images/productos/croptop-selva/imagenes/4.webp",
-    "/images/productos/croptop-selva/imagenes/5.webp"
+    "/images/productos/croptop-selva/imagenes/5.jpeg"
   ],
   "tallas": [
     {
@@ -29,10 +29,6 @@
     },
     {
       "talla": "L",
-      "disponible": true
-    },
-    {
-      "talla": "XL",
       "disponible": true
     }
   ],
